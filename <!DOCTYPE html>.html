@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taiwanese Mahjong Basics</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      color: #000000;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #00FF00;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #000000;
+    }
+    nav a {
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+      display: block;
+    }
+    nav a:hover {
+      background-color: #333333;
+    }
+    .content {
+      padding: 20px;
+    }
+    .color-code {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .color-box {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+    .tile-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .tile {
+      width: 60px;
+      height: 90px;
+      border: 2px solid #000;
+      background-color: white;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      font-family: "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+    .tile img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .winning-hand {
+      margin-top: 30px;
+    }
+    .winning-hand h3 {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Taiwanese Mahjong Basics</h1>
+    <p>Learn the rules, tile types, and common winning hands.</p>
+  </header>
+  <nav>
+    <a href="#rules">Rules</a>
+    <a href="#examples">Winning Hands</a>
+    <a href="#colors">Tile Colors</a>
+    <a href="#tiles">Tile Samples</a>
+  </nav>
+  <div class="content">
+    <section id="rules">
+      <h2>Basic Rules</h2>
+      <p>Taiwanese Mahjong is played with 16-tile hands and includes drawing and discarding tiles to form valid winning combinations.</p>
+    </section>
+    <section id="examples">
+      <h2>Winning Hand Examples</h2>
+      <div class="winning-hand">
+        <h3>Simple Winning Hand (4 melds + 1 pair)</h3>
+        <div class="tile-row">
+          <div class="tile">1🀇</div>
+          <div class="tile">2🀇</div>
+          <div class="tile">3🀇</div>
+          <div class="tile"><img src="tiles/bamboo5.png" alt="5 Bamboo"></div>
+          <div class="tile"><img src="tiles/bamboo5.png" alt="5 Bamboo"></div>
+          <div class="tile"><img src="tiles/bamboo5.png" alt="5 Bamboo"></div>
+          <div class="tile"><img src="tiles/circle7.png" alt="7 Circle"></div>
+          <div class="tile"><img src="tiles/circle8.png" alt="8 Circle"></div>
+          <div class="tile"><img src="tiles/circle9.png" alt="9 Circle"></div>
+          <div class="tile">🀄</div>
+          <div class="tile">🀄</div>
+          <div class="tile">🀄</div>
+          <div class="tile">東</div>
+          <div class="tile">東</div>
+          <div class="tile">南</div>
+          <div class="tile">南</div>
+        </div>
+      </div>
+    </section>
+    <section id="colors">
+      <h2>Color Codes</h2>
+      <div class="color-code">
+        <div class="color-box" style="background-color: #FF0000;">Red</div>
+        <div class="color-box" style="background-color: #00FF00;">Lime</div>
+        <div class="color-box" style="background-color: #0000FF;">Blue</div>
+        <div class="color-box" style="background-color: #FFFF00; color: #000;">Yellow</div>
+        <div class="color-box" style="background-color: #000000;">Black</div>
+        <div class="color-box" style="background-color: #FFFFFF; color: #000;">White</div>
+      </div>
+    </section>
+    <section id="tiles">
+      <h2>Tile Samples</h2>
+      <h3>Characters (萬子)</h3>
+      <div class="tile-row">
+        <div class="tile">1🀇</div>
+        <div class="tile">2🀇</div>
+        <div class="tile">3🀇</div>
+        <div class="tile">4🀇</div>
+        <div class="tile">5🀇</div>
+        <div class="tile">6🀇</div>
+        <div class="tile">7🀇</div>
+        <div class="tile">8🀇</div>
+        <div class="tile">9🀇</div>
+      </div>
+      <h3>Bamboo (索子)</h3>
+      <div class="tile-row">
+        <div class="tile"><img src="tiles/bamboo1.png" alt="1 Bamboo"></div>
+        <div class="tile"><img src="tiles/bamboo2.png" alt="2 Bamboo"></div>
+        <div class="tile"><img src="tiles/bamboo3.png" alt="3 Bamboo"></div>
+        <div class="tile"><img src="tiles/bamboo4.png" alt="4 Bamboo"></div>
+        <div class="tile"><img src="tiles/bamboo5.png" alt="5 Bamboo"></div>
+        <div class="tile"><img src="tiles/bamboo6.png" alt="6 Bamboo"></div>
+        <div class="tile"><img src="tiles/bamboo7.png" alt="7 Bamboo"></div>
+        <div class="tile"><img src="tiles/bamboo8.png" alt="8 Bamboo"></div>
+        <div class="tile"><img src="tiles/bamboo9.png" alt="9 Bamboo"></div>
+      </div>
+      <h3>Circles (筒子)</h3>
+      <div class="tile-row">
+        <div class="tile"><img src="tiles/circle1.png" alt="1 Circle"></div>
+        <div class="tile"><img src="tiles/circle2.png" alt="2 Circle"></div>
+        <div class="tile"><img src="tiles/circle3.png" alt="3 Circle"></div>
+        <div class="tile"><img src="tiles/circle4.png" alt="4 Circle"></div>
+        <div class="tile"><img src="tiles/circle5.png" alt="5 Circle"></div>
+        <div class="tile"><img src="tiles/circle6.png" alt="6 Circle"></div>
+        <div class="tile"><img src="tiles/circle7.png" alt="7 Circle"></div>
+        <div class="tile"><img src="tiles/circle8.png" alt="8 Circle"></div>
+        <div class="tile"><img src="tiles/circle9.png" alt="9 Circle"></div>
+      </div>
+      <h3>Honor Tiles (字牌)</h3>
+      <div class="tile-row">
+        <div class="tile">東</div>
+        <div class="tile">南</div>
+        <div class="tile">西</div>
+        <div class="tile">北</div>
+        <div class="tile">中</div>
+        <div class="tile">發</div>
+        <div class="tile">白</div>
+      </div>
+      <h3>Flower & Season Tiles</h3>
+      <div class="tile-row">
+        <div class="tile">梅</div>
+        <div class="tile">蘭</div>
+        <div class="tile">竹</div>
+        <div class="tile">菊</div>
+        <div class="tile">春</div>
+        <div class="tile">夏</div>
+        <div class="tile">秋</div>
+        <div class="tile">冬</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
