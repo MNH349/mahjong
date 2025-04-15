@@ -1,197 +1,590 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Taiwanese Mahjong Basics</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f8f8;
-      color: #000000;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #00FF00;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: #000000;
-    }
-    nav a {
-      color: white;
-      padding: 14px 20px;
-      text-decoration: none;
-      display: block;
-    }
-    nav a:hover {
-      background-color: #333333;
-    }
-    .content {
-      padding: 20px;
-    }
-    .color-code {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .color-box {
-      width: 100px;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-    }
-    .tile-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-    .tile {
-      width: 60px;
-      height: 90px;
-      border: 2px solid #000;
-      background-color: white;
-      border-radius: 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 32px;
-      font-family: "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    }
-    .tile img {
-      max-width: 100%;
-      max-height: 100%;
-    }
-    .winning-hand {
-      margin-top: 30px;
-    }
-    .winning-hand h3 {
-      margin-bottom: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台灣麻將教學</title>
+    <style>
+        /* 全局樣式 */
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5dc;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #8B0000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        h1, h2, h3 {
+            color: #8B0000;
+        }
+        
+        /* 導航菜單 */
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav button {
+            background-color: #8B0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        nav button:hover {
+            background-color: #A52A2A;
+        }
+        
+        /* 內容區域 */
+        .content-section {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        /* 麻將牌樣式 */
+        .tile {
+            display: inline-block;
+            width: 40px;
+            height: 60px;
+            margin: 5px;
+            text-align: center;
+            line-height: 60px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .character {
+            background-color: #FF9999;
+            color: #8B0000;
+        }
+        
+        .bamboo {
+            background-color: #99CC99;
+            color: #006400;
+        }
+        
+        .dot {
+            background-color: #9999FF;
+            color: #00008B;
+        }
+        
+        .honor {
+            background-color: #F5F5DC;
+            color: #333;
+        }
+        
+        .flower {
+            background-color: #FFD700;
+            color: #8B0000;
+        }
+        
+        /* 練習區域 */
+        .practice-area {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        
+        .hand-container {
+            min-height: 80px;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .tile-pool {
+            min-height: 100px;
+            padding: 10px;
+            background-color: #d0d0d0;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .action-btn {
+            background-color: #8B0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        
+        .action-btn:hover {
+            background-color: #A52A2A;
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            nav {
+                flex-wrap: wrap;
+            }
+            
+            nav button {
+                margin: 5px;
+                flex: 1 0 40%;
+            }
+            
+            .tile {
+                width: 30px;
+                height: 45px;
+                line-height: 45px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Taiwanese Mahjong Basics</h1>
-    <p>Learn the rules, tile types, and common winning hands.</p>
-  </header>
-  <nav>
-    <a href="#rules">Rules</a>
-    <a href="#examples">Winning Hands</a>
-    <a href="#colors">Tile Colors</a>
-    <a href="#tiles">Tile Samples</a>
-  </nav>
-  <div class="content">
-    <section id="rules">
-      <h2>Basic Rules</h2>
-      <p>Taiwanese Mahjong is played with 16-tile hands and includes drawing and discarding tiles to form valid winning combinations.</p>
-    </section>
-    <section id="examples">
-      <h2>Winning Hand Examples</h2>
-      <div class="winning-hand">
-        <h3>Simple Winning Hand (4 melds + 1 pair)</h3>
-        <div class="tile-row">
-          <div class="tile">1🀇</div>
-          <div class="tile">2🀇</div>
-          <div class="tile">3🀇</div>
-          <div class="tile"><img src="tiles/bamboo5.png" alt="5 Bamboo"></div>
-          <div class="tile"><img src="tiles/bamboo5.png" alt="5 Bamboo"></div>
-          <div class="tile"><img src="tiles/bamboo5.png" alt="5 Bamboo"></div>
-          <div class="tile"><img src="tiles/circle7.png" alt="7 Circle"></div>
-          <div class="tile"><img src="tiles/circle8.png" alt="8 Circle"></div>
-          <div class="tile"><img src="tiles/circle9.png" alt="9 Circle"></div>
-          <div class="tile">🀄</div>
-          <div class="tile">🀄</div>
-          <div class="tile">🀄</div>
-          <div class="tile">東</div>
-          <div class="tile">東</div>
-          <div class="tile">南</div>
-          <div class="tile">南</div>
-        </div>
-      </div>
-    </section>
-    <section id="colors">
-      <h2>Color Codes</h2>
-      <div class="color-code">
-        <div class="color-box" style="background-color: #FF0000;">Red</div>
-        <div class="color-box" style="background-color: #00FF00;">Lime</div>
-        <div class="color-box" style="background-color: #0000FF;">Blue</div>
-        <div class="color-box" style="background-color: #FFFF00; color: #000;">Yellow</div>
-        <div class="color-box" style="background-color: #000000;">Black</div>
-        <div class="color-box" style="background-color: #FFFFFF; color: #000;">White</div>
-      </div>
-    </section>
-    <section id="tiles">
-      <h2>Tile Samples</h2>
-      <h3>Characters (萬子)</h3>
-      <div class="tile-row">
-        <div class="tile">1🀇</div>
-        <div class="tile">2🀇</div>
-        <div class="tile">3🀇</div>
-        <div class="tile">4🀇</div>
-        <div class="tile">5🀇</div>
-        <div class="tile">6🀇</div>
-        <div class="tile">7🀇</div>
-        <div class="tile">8🀇</div>
-        <div class="tile">9🀇</div>
-      </div>
-      <h3>Bamboo (索子)</h3>
-      <div class="tile-row">
-        <div class="tile"><img src="tiles/bamboo1.png" alt="1 Bamboo"></div>
-        <div class="tile"><img src="tiles/bamboo2.png" alt="2 Bamboo"></div>
-        <div class="tile"><img src="tiles/bamboo3.png" alt="3 Bamboo"></div>
-        <div class="tile"><img src="tiles/bamboo4.png" alt="4 Bamboo"></div>
-        <div class="tile"><img src="tiles/bamboo5.png" alt="5 Bamboo"></div>
-        <div class="tile"><img src="tiles/bamboo6.png" alt="6 Bamboo"></div>
-        <div class="tile"><img src="tiles/bamboo7.png" alt="7 Bamboo"></div>
-        <div class="tile"><img src="tiles/bamboo8.png" alt="8 Bamboo"></div>
-        <div class="tile"><img src="tiles/bamboo9.png" alt="9 Bamboo"></div>
-      </div>
-      <h3>Circles (筒子)</h3>
-      <div class="tile-row">
-        <div class="tile"><img src="tiles/circle1.png" alt="1 Circle"></div>
-        <div class="tile"><img src="tiles/circle2.png" alt="2 Circle"></div>
-        <div class="tile"><img src="tiles/circle3.png" alt="3 Circle"></div>
-        <div class="tile"><img src="tiles/circle4.png" alt="4 Circle"></div>
-        <div class="tile"><img src="tiles/circle5.png" alt="5 Circle"></div>
-        <div class="tile"><img src="tiles/circle6.png" alt="6 Circle"></div>
-        <div class="tile"><img src="tiles/circle7.png" alt="7 Circle"></div>
-        <div class="tile"><img src="tiles/circle8.png" alt="8 Circle"></div>
-        <div class="tile"><img src="tiles/circle9.png" alt="9 Circle"></div>
-      </div>
-      <h3>Honor Tiles (字牌)</h3>
-      <div class="tile-row">
-        <div class="tile">東</div>
-        <div class="tile">南</div>
-        <div class="tile">西</div>
-        <div class="tile">北</div>
-        <div class="tile">中</div>
-        <div class="tile">發</div>
-        <div class="tile">白</div>
-      </div>
-      <h3>Flower & Season Tiles</h3>
-      <div class="tile-row">
-        <div class="tile">梅</div>
-        <div class="tile">蘭</div>
-        <div class="tile">竹</div>
-        <div class="tile">菊</div>
-        <div class="tile">春</div>
-        <div class="tile">夏</div>
-        <div class="tile">秋</div>
-        <div class="tile">冬</div>
-      </div>
-    </section>
-  </div>
+    <div class="container">
+        <header>
+            <h1>台灣麻將教學系統</h1>
+            <p>學習台灣16張麻將的基本規則與胡牌方法</p>
+        </header>
+        
+        <nav>
+            <button onclick="showSection('basic')">基本規則</button>
+            <button onclick="showSection('tiles')">牌型認識</button>
+            <button onclick="showSection('win')">胡牌方法</button>
+            <button onclick="showSection('practice')">胡牌練習</button>
+            <button onclick="showSection('terms')">術語解釋</button>
+        </nav>
+        
+        <!-- 基本規則 -->
+        <section id="basic" class="content-section">
+            <h2>台灣麻將基本規則</h2>
+            <p>台灣麻將使用144張牌，包含：</p>
+            <ul>
+                <li>萬子：1-9萬，每種4張，共36張</li>
+                <li>條子：1-9條，每種4張，共36張</li>
+                <li>筒子：1-9筒，每種4張，共36張</li>
+                <li>字牌：東、南、西、北、中、發、白，每種4張，共28張</li>
+                <li>花牌：梅、蘭、竹、菊、春、夏、秋、冬，共8張</li>
+            </ul>
+            
+            <h3>遊戲流程</h3>
+            <ol>
+                <li>洗牌後，每家堆疊18墩（36張牌）形成牌牆</li>
+                <li>莊家擲骰決定開門位置</li>
+                <li>每家依序摸牌，莊家先摸17張，其他玩家16張</li>
+                <li>莊家打出第一張牌後，遊戲正式開始</li>
+                <li>玩家依序摸牌、打牌，可進行吃、碰、槓等動作</li>
+                <li>當有玩家胡牌或流局時，遊戲結束</li>
+            </ol>
+        </section>
+        
+        <!-- 牌型認識 -->
+        <section id="tiles" class="content-section">
+            <h2>麻將牌型認識</h2>
+            
+            <h3>萬子（字符）</h3>
+            <div>
+                <span class="tile character">1萬</span>
+                <span class="tile character">2萬</span>
+                <span class="tile character">3萬</span>
+                <span class="tile character">4萬</span>
+                <span class="tile character">5萬</span>
+                <span class="tile character">6萬</span>
+                <span class="tile character">7萬</span>
+                <span class="tile character">8萬</span>
+                <span class="tile character">9萬</span>
+            </div>
+            
+            <h3>條子（竹節）</h3>
+            <div>
+                <span class="tile bamboo">1條</span>
+                <span class="tile bamboo">2條</span>
+                <span class="tile bamboo">3條</span>
+                <span class="tile bamboo">4條</span>
+                <span class="tile bamboo">5條</span>
+                <span class="tile bamboo">6條</span>
+                <span class="tile bamboo">7條</span>
+                <span class="tile bamboo">8條</span>
+                <span class="tile bamboo">9條</span>
+            </div>
+            
+            <h3>筒子（圓圈）</h3>
+            <div>
+                <span class="tile dot">1筒</span>
+                <span class="tile dot">2筒</span>
+                <span class="tile dot">3筒</span>
+                <span class="tile dot">4筒</span>
+                <span class="tile dot">5筒</span>
+                <span class="tile dot">6筒</span>
+                <span class="tile dot">7筒</span>
+                <span class="tile dot">8筒</span>
+                <span class="tile dot">9筒</span>
+            </div>
+            
+            <h3>字牌</h3>
+            <div>
+                <span class="tile honor">東</span>
+                <span class="tile honor">南</span>
+                <span class="tile honor">西</span>
+                <span class="tile honor">北</span>
+                <span class="tile honor">中</span>
+                <span class="tile honor">發</span>
+                <span class="tile honor">白</span>
+            </div>
+            
+            <h3>花牌</h3>
+            <div>
+                <span class="tile flower">梅</span>
+                <span class="tile flower">蘭</span>
+                <span class="tile flower">竹</span>
+                <span class="tile flower">菊</span>
+                <span class="tile flower">春</span>
+                <span class="tile flower">夏</span>
+                <span class="tile flower">秋</span>
+                <span class="tile flower">冬</span>
+            </div>
+        </section>
+        
+        <!-- 胡牌方法 -->
+        <section id="win" class="content-section">
+            <h2>台灣麻將胡牌方法</h2>
+            
+            <h3>基本胡牌條件</h3>
+            <p>台灣16張麻將需要17張牌組成胡牌牌型（16張手牌 + 1張摸進或吃碰的牌）：</p>
+            <ul>
+                <li>5組牌（4組順子或刻子 + 1對將眼）</li>
+                <li>或特殊牌型（如七對子、碰碰胡等）</li>
+            </ul>
+            
+            <h3>常見胡牌牌型</h3>
+            
+            <h4>平胡</h4>
+            <div class="hand-container">
+                <span class="tile character">1萬</span>
+                <span class="tile character">2萬</span>
+                <span class="tile character">3萬</span>
+                <span class="tile bamboo">2條</span>
+                <span class="tile bamboo">3條</span>
+                <span class="tile bamboo">4條</span>
+                <span class="tile dot">5筒</span>
+                <span class="tile dot">5筒</span>
+                <span class="tile dot">5筒</span>
+                <span class="tile honor">東</span>
+                <span class="tile honor">東</span>
+                <span class="tile honor">東</span>
+                <span class="tile honor">白</span>
+                <span class="tile honor">白</span>
+            </div>
+            <p>包含：順子(1-2-3萬)、順子(2-3-4條)、刻子(5筒)、刻子(東風)、將眼(白板)</p>
+            
+            <h4>碰碰胡</h4>
+            <div class="hand-container">
+                <span class="tile character">1萬</span>
+                <span class="tile character">1萬</span>
+                <span class="tile character">1萬</span>
+                <span class="tile bamboo">2條</span>
+                <span class="tile bamboo">2條</span>
+                <span class="tile bamboo">2條</span>
+                <span class="tile dot">5筒</span>
+                <span class="tile dot">5筒</span>
+                <span class="tile dot">5筒</span>
+                <span class="tile honor">東</span>
+                <span class="tile honor">東</span>
+                <span class="tile honor">東</span>
+                <span class="tile honor">白</span>
+                <span class="tile honor">白</span>
+            </div>
+            <p>全部由刻子組成 + 一對將眼</p>
+            
+            <h4>七對子</h4>
+            <div class="hand-container">
+                <span class="tile character">1萬</span>
+                <span class="tile character">1萬</span>
+                <span class="tile bamboo">2條</span>
+                <span class="tile bamboo">2條</span>
+                <span class="tile dot">3筒</span>
+                <span class="tile dot">3筒</span>
+                <span class="tile honor">東</span>
+                <span class="tile honor">東</span>
+                <span class="tile character">4萬</span>
+                <span class="tile character">4萬</span>
+                <span class="tile bamboo">5條</span>
+                <span class="tile bamboo">5條</span>
+                <span class="tile honor">發</span>
+                <span class="tile honor">發</span>
+            </div>
+            <p>由七個對子組成（台灣部分玩法不承認此牌型）</p>
+        </section>
+        
+        <!-- 胡牌練習 -->
+        <section id="practice" class="content-section">
+            <h2>胡牌練習</h2>
+            
+            <div class="practice-area">
+                <h3>練習1: 基本胡牌判斷</h3>
+                <p>請從下方牌池中選擇16張牌作為手牌，然後點擊"檢查胡牌"按鈕</p>
+                
+                <div class="hand-container" id="hand">
+                    <p>您的牌組（0/16）</p>
+                </div>
+                
+                <button class="action-btn" onclick="checkWin()">檢查胡牌</button>
+                <button class="action-btn" onclick="resetPractice()">重新開始</button>
+                
+                <div class="tile-pool" id="tile-pool">
+                    <!-- 牌池將由JavaScript動態生成 -->
+                </div>
+                
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+        </section>
+        
+        <!-- 術語解釋 -->
+        <section id="terms" class="content-section">
+            <h2>台灣麻將術語解釋</h2>
+            
+            <dl>
+                <dt>吃</dt>
+                <dd>當上家打出的牌能與你手中的兩張牌組成順子時，可以"吃"牌</dd>
+                
+                <dt>碰</dt>
+                <dd>當任何一家打出的牌能與你手中的兩張牌組成刻子時，可以"碰"牌</dd>
+                
+                <dt>槓</dt>
+                <dd>當你手中有三張相同的牌，又摸到第四張時，可以"槓"牌</dd>
+                
+                <dt>聽牌</dt>
+                <dd>只差一張牌就能胡牌的狀態</dd>
+                
+                <dt>胡牌</dt>
+                <dd>牌型符合胡牌條件，可以宣告勝利</dd>
+                
+                <dt>自摸</dt>
+                <dd>自己摸到需要的牌而胡牌</dd>
+                
+                <dt>放槍</dt>
+                <dd>打出的牌被其他玩家胡牌</dd>
+                
+                <dt>流局</dt>
+                <dd>牌牆摸完仍無人胡牌</dd>
+            </dl>
+        </section>
+    </div>
+    
+    <script>
+        // 顯示特定內容區域
+        function showSection(sectionId) {
+            // 隱藏所有內容區域
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // 顯示選定的內容區域
+            document.getElementById(sectionId).classList.add('active');
+        }
+        
+        // 初始化顯示基本規則
+        window.onload = function() {
+            showSection('basic');
+            initializeTilePool();
+        };
+        
+        // 麻將牌數據
+        const tileTypes = [
+            { name: '1萬', type: 'character' },
+            { name: '2萬', type: 'character' },
+            { name: '3萬', type: 'character' },
+            { name: '4萬', type: 'character' },
+            { name: '5萬', type: 'character' },
+            { name: '6萬', type: 'character' },
+            { name: '7萬', type: 'character' },
+            { name: '8萬', type: 'character' },
+            { name: '9萬', type: 'character' },
+            { name: '1條', type: 'bamboo' },
+            { name: '2條', type: 'bamboo' },
+            { name: '3條', type: 'bamboo' },
+            { name: '4條', type: 'bamboo' },
+            { name: '5條', type: 'bamboo' },
+            { name: '6條', type: 'bamboo' },
+            { name: '7條', type: 'bamboo' },
+            { name: '8條', type: 'bamboo' },
+            { name: '9條', type: 'bamboo' },
+            { name: '1筒', type: 'dot' },
+            { name: '2筒', type: 'dot' },
+            { name: '3筒', type: 'dot' },
+            { name: '4筒', type: 'dot' },
+            { name: '5筒', type: 'dot' },
+            { name: '6筒', type: 'dot' },
+            { name: '7筒', type: 'dot' },
+            { name: '8筒', type: 'dot' },
+            { name: '9筒', type: 'dot' },
+            { name: '東', type: 'honor' },
+            { name: '南', type: 'honor' },
+            { name: '西', type: 'honor' },
+            { name: '北', type: 'honor' },
+            { name: '中', type: 'honor' },
+            { name: '發', type: 'honor' },
+            { name: '白', type: 'honor' },
+            { name: '梅', type: 'flower' },
+            { name: '蘭', type: 'flower' },
+            { name: '竹', type: 'flower' },
+            { name: '菊', type: 'flower' },
+            { name: '春', type: 'flower' },
+            { name: '夏', type: 'flower' },
+            { name: '秋', type: 'flower' },
+            { name: '冬', type: 'flower' }
+        ];
+        
+        // 初始化牌池
+        function initializeTilePool() {
+            const tilePool = document.getElementById('tile-pool');
+            tilePool.innerHTML = '';
+            
+            // 創建4副每種牌
+            for (let i = 0; i < 4; i++) {
+                tileTypes.forEach(tile => {
+                    const tileElement = document.createElement('span');
+                    tileElement.className = `tile ${tile.type}`;
+                    tileElement.textContent = tile.name;
+                    tileElement.onclick = function() { selectTile(this); };
+                    tilePool.appendChild(tileElement);
+                });
+            }
+        }
+        
+        // 選牌功能
+        function selectTile(tileElement) {
+            const hand = document.getElementById('hand');
+            const selectedTiles = hand.querySelectorAll('.tile');
+            
+            if (selectedTiles.length >= 16) {
+                alert('已經選擇了16張牌！');
+                return;
+            }
+            
+            // 克隆選中的牌到手牌區
+            const clonedTile = tileElement.cloneNode(true);
+            clonedTile.onclick = function() { returnTile(this); };
+            hand.appendChild(clonedTile);
+            
+            // 更新計數
+            updateTileCount();
+        }
+        
+        // 還原牌功能
+        function returnTile(tileElement) {
+            tileElement.remove();
+            updateTileCount();
+        }
+        
+        // 更新牌計數
+        function updateTileCount() {
+            const hand = document.getElementById('hand');
+            const selectedTiles = hand.querySelectorAll('.tile');
+            hand.firstElementChild.textContent = `您的牌組（${selectedTiles.length}/16）`;
+        }
+        
+        // 重置練習
+        function resetPractice() {
+            const hand = document.getElementById('hand');
+            hand.innerHTML = '<p>您的牌組（0/16）</p>';
+            document.getElementById('result').style.display = 'none';
+            initializeTilePool();
+        }
+        
+        // 檢查胡牌
+        function checkWin() {
+            const hand = document.getElementById('hand');
+            const selectedTiles = hand.querySelectorAll('.tile');
+            const resultDiv = document.getElementById('result');
+            
+            if (selectedTiles.length !== 16) {
+                resultDiv.textContent = '請選擇16張牌！';
+                resultDiv.className = 'result error';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            // 簡化的胡牌檢查邏輯
+            const tileCounts = {};
+            Array.from(selectedTiles).forEach(tile => {
+                const tileName = tile.textContent;
+                tileCounts[tileName] = (tileCounts[tileName] || 0) + 1;
+            });
+            
+            // 檢查是否有至少一個對子
+            let hasPair = false;
+            for (const count of Object.values(tileCounts)) {
+                if (count >= 2) {
+                    hasPair = true;
+                    break;
+                }
+            }
+            
+            if (!hasPair) {
+                resultDiv.textContent = '不能胡牌：缺少將眼（至少需要一對）';
+                resultDiv.className = 'result error';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            // 這裡應該有更複雜的胡牌檢查邏輯
+            // 簡化版只檢查基本條件
+            
+            resultDiv.textContent = '可能可以胡牌！（簡化檢查，實際遊戲需要更複雜的判斷）';
+            resultDiv.className = 'result success';
+            resultDiv.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
