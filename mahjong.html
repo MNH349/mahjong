@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台灣麻將教學</title>
+    <title>台灣麻將教學 Taiwan Mahjong Tutorial</title>
     <style>
         /* 全局樣式 */
         body {
@@ -31,6 +31,29 @@
         
         h1, h2, h3 {
             color: #8B0000;
+        }
+        
+        /* 語言切換按鈕 */
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .language-btn {
+            background-color: #fff;
+            color: #8B0000;
+            border: 1px solid #8B0000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        
+        .language-btn.active {
+            background-color: #8B0000;
+            color: white;
         }
         
         /* 導航菜單 */
@@ -187,52 +210,101 @@
                 line-height: 45px;
                 font-size: 12px;
             }
+            
+            .language-switcher {
+                position: static;
+                text-align: center;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="language-switcher">
+            <button class="language-btn active" onclick="switchLanguage('zh')">中文</button>
+            <button class="language-btn" onclick="switchLanguage('en')">English</button>
+        </div>
+        
         <header>
-            <h1>台灣麻將教學系統</h1>
-            <p>學習台灣16張麻將的基本規則與胡牌方法</p>
+            <h1 data-lang="zh">台灣麻將教學系統</h1>
+            <h1 data-lang="en" style="display:none">Taiwan Mahjong Tutorial</h1>
+            <p data-lang="zh">學習台灣16張麻將的基本規則與胡牌方法</p>
+            <p data-lang="en" style="display:none">Learn the basic rules and winning hands of Taiwan 16-tile Mahjong</p>
         </header>
         
         <nav>
-            <button onclick="showSection('basic')">基本規則</button>
-            <button onclick="showSection('tiles')">牌型認識</button>
-            <button onclick="showSection('win')">胡牌方法</button>
-            <button onclick="showSection('practice')">胡牌練習</button>
-            <button onclick="showSection('terms')">術語解釋</button>
+            <button onclick="showSection('basic')" data-lang="zh">基本規則</button>
+            <button onclick="showSection('basic')" data-lang="en" style="display:none">Basic Rules</button>
+            
+            <button onclick="showSection('tiles')" data-lang="zh">牌型認識</button>
+            <button onclick="showSection('tiles')" data-lang="en" style="display:none">Tile Types</button>
+            
+            <button onclick="showSection('win')" data-lang="zh">胡牌方法</button>
+            <button onclick="showSection('win')" data-lang="en" style="display:none">Winning Hands</button>
+            
+            <button onclick="showSection('practice')" data-lang="zh">胡牌練習</button>
+            <button onclick="showSection('practice')" data-lang="en" style="display:none">Practice</button>
+            
+            <button onclick="showSection('terms')" data-lang="zh">術語解釋</button>
+            <button onclick="showSection('terms')" data-lang="en" style="display:none">Terminology</button>
         </nav>
         
         <!-- 基本規則 -->
         <section id="basic" class="content-section">
-            <h2>台灣麻將基本規則</h2>
-            <p>台灣麻將使用144張牌，包含：</p>
-            <ul>
-                <li>萬子：1-9萬，每種4張，共36張</li>
-                <li>條子：1-9條，每種4張，共36張</li>
-                <li>筒子：1-9筒，每種4張，共36張</li>
-                <li>字牌：東、南、西、北、中、發、白，每種4張，共28張</li>
-                <li>花牌：梅、蘭、竹、菊、春、夏、秋、冬，共8張</li>
-            </ul>
+            <h2 data-lang="zh">台灣麻將基本規則</h2>
+            <h2 data-lang="en" style="display:none">Basic Rules of Taiwan Mahjong</h2>
             
-            <h3>遊戲流程</h3>
-            <ol>
-                <li>洗牌後，每家堆疊18墩（36張牌）形成牌牆</li>
-                <li>莊家擲骰決定開門位置</li>
-                <li>每家依序摸牌，莊家先摸17張，其他玩家16張</li>
-                <li>莊家打出第一張牌後，遊戲正式開始</li>
-                <li>玩家依序摸牌、打牌，可進行吃、碰、槓等動作</li>
-                <li>當有玩家胡牌或流局時，遊戲結束</li>
-            </ol>
+            <div data-lang="zh">
+                <p>台灣麻將使用144張牌，包含：</p>
+                <ul>
+                    <li>萬子：1-9萬，每種4張，共36張</li>
+                    <li>條子：1-9條，每種4張，共36張</li>
+                    <li>筒子：1-9筒，每種4張，共36張</li>
+                    <li>字牌：東、南、西、北、中、發、白，每種4張，共28張</li>
+                    <li>花牌：梅、蘭、竹、菊、春、夏、秋、冬，共8張</li>
+                </ul>
+                
+                <h3>遊戲流程</h3>
+                <ol>
+                    <li>洗牌後，每家堆疊18墩（36張牌）形成牌牆</li>
+                    <li>莊家擲骰決定開門位置</li>
+                    <li>每家依序摸牌，莊家先摸17張，其他玩家16張</li>
+                    <li>莊家打出第一張牌後，遊戲正式開始</li>
+                    <li>玩家依序摸牌、打牌，可進行吃、碰、槓等動作</li>
+                    <li>當有玩家胡牌或流局時，遊戲結束</li>
+                </ol>
+            </div>
+            
+            <div data-lang="en" style="display:none">
+                <p>Taiwan Mahjong uses 144 tiles, including:</p>
+                <ul>
+                    <li>Characters: 1-9, 4 of each, total 36 tiles</li>
+                    <li>Bamboos: 1-9, 4 of each, total 36 tiles</li>
+                    <li>Dots: 1-9, 4 of each, total 36 tiles</li>
+                    <li>Honor tiles: East, South, West, North, Red, Green, White, 4 of each, total 28 tiles</li>
+                    <li>Flower tiles: Plum, Orchid, Bamboo, Chrysanthemum, Spring, Summer, Autumn, Winter, total 8 tiles</li>
+                </ul>
+                
+                <h3>Game Flow</h3>
+                <ol>
+                    <li>After shuffling, each player builds a wall of 18 stacks (36 tiles)</li>
+                    <li>The dealer throws dice to determine where to break the wall</li>
+                    <li>Players draw tiles in turn, dealer gets 17 tiles, others get 16</li>
+                    <li>Game starts after the dealer discards the first tile</li>
+                    <li>Players take turns drawing and discarding tiles, can perform Chow, Pong, Kong actions</li>
+                    <li>Game ends when a player declares a win or it's a draw</li>
+                </ol>
+            </div>
         </section>
         
         <!-- 牌型認識 -->
         <section id="tiles" class="content-section">
-            <h2>麻將牌型認識</h2>
+            <h2 data-lang="zh">麻將牌型認識</h2>
+            <h2 data-lang="en" style="display:none">Mahjong Tile Types</h2>
             
-            <h3>萬子（字符）</h3>
+            <h3 data-lang="zh">萬子（字符）</h3>
+            <h3 data-lang="en" style="display:none">Characters (Wan)</h3>
             <div>
                 <span class="tile character">1萬</span>
                 <span class="tile character">2萬</span>
@@ -245,7 +317,8 @@
                 <span class="tile character">9萬</span>
             </div>
             
-            <h3>條子（竹節）</h3>
+            <h3 data-lang="zh">條子（竹節）</h3>
+            <h3 data-lang="en" style="display:none">Bamboos (Tiao)</h3>
             <div>
                 <span class="tile bamboo">1條</span>
                 <span class="tile bamboo">2條</span>
@@ -258,7 +331,8 @@
                 <span class="tile bamboo">9條</span>
             </div>
             
-            <h3>筒子（圓圈）</h3>
+            <h3 data-lang="zh">筒子（圓圈）</h3>
+            <h3 data-lang="en" style="display:none">Dots (Tong)</h3>
             <div>
                 <span class="tile dot">1筒</span>
                 <span class="tile dot">2筒</span>
@@ -271,7 +345,8 @@
                 <span class="tile dot">9筒</span>
             </div>
             
-            <h3>字牌</h3>
+            <h3 data-lang="zh">字牌</h3>
+            <h3 data-lang="en" style="display:none">Honor Tiles</h3>
             <div>
                 <span class="tile honor">東</span>
                 <span class="tile honor">南</span>
@@ -282,7 +357,8 @@
                 <span class="tile honor">白</span>
             </div>
             
-            <h3>花牌</h3>
+            <h3 data-lang="zh">花牌</h3>
+            <h3 data-lang="en" style="display:none">Flower Tiles</h3>
             <div>
                 <span class="tile flower">梅</span>
                 <span class="tile flower">蘭</span>
@@ -297,89 +373,172 @@
         
         <!-- 胡牌方法 -->
         <section id="win" class="content-section">
-            <h2>台灣麻將胡牌方法</h2>
+            <h2 data-lang="zh">台灣麻將胡牌方法</h2>
+            <h2 data-lang="en" style="display:none">Taiwan Mahjong Winning Hands</h2>
             
-            <h3>基本胡牌條件</h3>
-            <p>台灣16張麻將需要17張牌組成胡牌牌型（16張手牌 + 1張摸進或吃碰的牌）：</p>
-            <ul>
-                <li>5組牌（4組順子或刻子 + 1對將眼）</li>
-                <li>或特殊牌型（如七對子、碰碰胡等）</li>
-            </ul>
-            
-            <h3>常見胡牌牌型</h3>
-            
-            <h4>平胡</h4>
-            <div class="hand-container">
-                <span class="tile character">1萬</span>
-                <span class="tile character">2萬</span>
-                <span class="tile character">3萬</span>
-                <span class="tile bamboo">2條</span>
-                <span class="tile bamboo">3條</span>
-                <span class="tile bamboo">4條</span>
-                <span class="tile dot">5筒</span>
-                <span class="tile dot">5筒</span>
-                <span class="tile dot">5筒</span>
-                <span class="tile honor">東</span>
-                <span class="tile honor">東</span>
-                <span class="tile honor">東</span>
-                <span class="tile honor">白</span>
-                <span class="tile honor">白</span>
+            <div data-lang="zh">
+                <h3>基本胡牌條件</h3>
+                <p>台灣16張麻將需要17張牌組成胡牌牌型（16張手牌 + 1張摸進或吃碰的牌）：</p>
+                <ul>
+                    <li>5組牌（4組順子或刻子 + 1對將眼）</li>
+                    <li>或特殊牌型（如七對子、碰碰胡等）</li>
+                </ul>
+                
+                <h3>常見胡牌牌型</h3>
+                
+                <h4>平胡</h4>
+                <div class="hand-container">
+                    <span class="tile character">1萬</span>
+                    <span class="tile character">2萬</span>
+                    <span class="tile character">3萬</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile bamboo">3條</span>
+                    <span class="tile bamboo">4條</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">白</span>
+                    <span class="tile honor">白</span>
+                </div>
+                <p>包含：順子(1-2-3萬)、順子(2-3-4條)、刻子(5筒)、刻子(東風)、將眼(白板)</p>
+                
+                <h4>碰碰胡</h4>
+                <div class="hand-container">
+                    <span class="tile character">1萬</span>
+                    <span class="tile character">1萬</span>
+                    <span class="tile character">1萬</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">白</span>
+                    <span class="tile honor">白</span>
+                </div>
+                <p>全部由刻子組成 + 一對將眼</p>
+                
+                <h4>八面聽</h4>
+                <div class="hand-container">
+                    <span class="tile character">1萬</span>
+                    <span class="tile character">1萬</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile dot">3筒</span>
+                    <span class="tile dot">3筒</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile character">4萬</span>
+                    <span class="tile character">4萬</span>
+                    <span class="tile bamboo">5條</span>
+                    <span class="tile bamboo">5條</span>
+                    <span class="tile honor">發</span>
+                    <span class="tile honor">發</span>
+                    <span class="tile dot">8筒</span>
+                    <span class="tile dot">8筒</span>
+                </div>
+                <p>由八個對子組成 任意一張都能胡牌</p>
             </div>
-            <p>包含：順子(1-2-3萬)、順子(2-3-4條)、刻子(5筒)、刻子(東風)、將眼(白板)</p>
             
-            <h4>碰碰胡</h4>
-            <div class="hand-container">
-                <span class="tile character">1萬</span>
-                <span class="tile character">1萬</span>
-                <span class="tile character">1萬</span>
-                <span class="tile bamboo">2條</span>
-                <span class="tile bamboo">2條</span>
-                <span class="tile bamboo">2條</span>
-                <span class="tile dot">5筒</span>
-                <span class="tile dot">5筒</span>
-                <span class="tile dot">5筒</span>
-                <span class="tile honor">東</span>
-                <span class="tile honor">東</span>
-                <span class="tile honor">東</span>
-                <span class="tile honor">白</span>
-                <span class="tile honor">白</span>
+            <div data-lang="en" style="display:none">
+                <h3>Basic Winning Conditions</h3>
+                <p>Taiwan 16-tile Mahjong requires 17 tiles to form a winning hand (16 hand tiles + 1 drawn or claimed tile):</p>
+                <ul>
+                    <li>5 sets (4 sequences or triplets + 1 pair of eyes)</li>
+                    <li>Or special hands (like Seven Pairs, All Triplets, etc.)</li>
+                </ul>
+                
+                <h3>Common Winning Hands</h3>
+                
+                <h4>Standard Win</h4>
+                <div class="hand-container">
+                    <span class="tile character">1萬</span>
+                    <span class="tile character">2萬</span>
+                    <span class="tile character">3萬</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile bamboo">3條</span>
+                    <span class="tile bamboo">4條</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">白</span>
+                    <span class="tile honor">白</span>
+                </div>
+                <p>Contains: Sequence(1-2-3 Wan), Sequence(2-3-4 Tiao), Triplet(5 Tong), Triplet(East), Pair(White)</p>
+                
+                <h4>All Triplets</h4>
+                <div class="hand-container">
+                    <span class="tile character">1萬</span>
+                    <span class="tile character">1萬</span>
+                    <span class="tile character">1萬</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile dot">5筒</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">白</span>
+                    <span class="tile honor">白</span>
+                </div>
+                <p>All triplets + one pair</p>
+                
+                <h4>Eight Pairs</h4>
+                <div class="hand-container">
+                    <span class="tile character">1萬</span>
+                    <span class="tile character">1萬</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile bamboo">2條</span>
+                    <span class="tile dot">3筒</span>
+                    <span class="tile dot">3筒</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile honor">東</span>
+                    <span class="tile character">4萬</span>
+                    <span class="tile character">4萬</span>
+                    <span class="tile bamboo">5條</span>
+                    <span class="tile bamboo">5條</span>
+                    <span class="tile honor">發</span>
+                    <span class="tile honor">發</span>
+                    <span class="tile dot">8筒</span>
+                    <span class="tile dot">8筒</span>
+                </div>
+                <p>Eight pairs (Any tile of the eight pairs can win)</p>
             </div>
-            <p>全部由刻子組成 + 一對將眼</p>
-            
-            <h4>七對子</h4>
-            <div class="hand-container">
-                <span class="tile character">1萬</span>
-                <span class="tile character">1萬</span>
-                <span class="tile bamboo">2條</span>
-                <span class="tile bamboo">2條</span>
-                <span class="tile dot">3筒</span>
-                <span class="tile dot">3筒</span>
-                <span class="tile honor">東</span>
-                <span class="tile honor">東</span>
-                <span class="tile character">4萬</span>
-                <span class="tile character">4萬</span>
-                <span class="tile bamboo">5條</span>
-                <span class="tile bamboo">5條</span>
-                <span class="tile honor">發</span>
-                <span class="tile honor">發</span>
-            </div>
-            <p>由七個對子組成（台灣部分玩法不承認此牌型）</p>
         </section>
         
         <!-- 胡牌練習 -->
         <section id="practice" class="content-section">
-            <h2>胡牌練習</h2>
+            <h2 data-lang="zh">胡牌練習</h2>
+            <h2 data-lang="en" style="display:none">Practice</h2>
             
             <div class="practice-area">
-                <h3>練習1: 基本胡牌判斷</h3>
-                <p>請從下方牌池中選擇16張牌作為手牌，然後點擊"檢查胡牌"按鈕</p>
+                <h3 data-lang="zh">練習1: 基本胡牌判斷</h3>
+                <h3 data-lang="en" style="display:none">Exercise 1: Basic Winning Hand</h3>
+                
+                <p data-lang="zh">請從下方牌池中選擇16張牌作為手牌，然後點擊"檢查胡牌"按鈕</p>
+                <p data-lang="en" style="display:none">Select 16 tiles from the pool below as your hand, then click "Check Win"</p>
                 
                 <div class="hand-container" id="hand">
-                    <p>您的牌組（0/16）</p>
+                    <p data-lang="zh">您的牌組（0/16）</p>
+                    <p data-lang="en" style="display:none">Your tiles (0/16)</p>
                 </div>
                 
-                <button class="action-btn" onclick="checkWin()">檢查胡牌</button>
-                <button class="action-btn" onclick="resetPractice()">重新開始</button>
+                <button class="action-btn" onclick="checkWin()" data-lang="zh">檢查胡牌</button>
+                <button class="action-btn" onclick="checkWin()" data-lang="en" style="display:none">Check Win</button>
+                
+                <button class="action-btn" onclick="resetPractice()" data-lang="zh">重新開始</button>
+                <button class="action-btn" onclick="resetPractice()" data-lang="en" style="display:none">Reset</button>
                 
                 <div class="tile-pool" id="tile-pool">
                     <!-- 牌池將由JavaScript動態生成 -->
@@ -391,37 +550,71 @@
         
         <!-- 術語解釋 -->
         <section id="terms" class="content-section">
-            <h2>台灣麻將術語解釋</h2>
+            <h2 data-lang="zh">台灣麻將術語解釋</h2>
+            <h2 data-lang="en" style="display:none">Taiwan Mahjong Terminology</h2>
             
-            <dl>
-                <dt>吃</dt>
-                <dd>當上家打出的牌能與你手中的兩張牌組成順子時，可以"吃"牌</dd>
-                
-                <dt>碰</dt>
-                <dd>當任何一家打出的牌能與你手中的兩張牌組成刻子時，可以"碰"牌</dd>
-                
-                <dt>槓</dt>
-                <dd>當你手中有三張相同的牌，又摸到第四張時，可以"槓"牌</dd>
-                
-                <dt>聽牌</dt>
-                <dd>只差一張牌就能胡牌的狀態</dd>
-                
-                <dt>胡牌</dt>
-                <dd>牌型符合胡牌條件，可以宣告勝利</dd>
-                
-                <dt>自摸</dt>
-                <dd>自己摸到需要的牌而胡牌</dd>
-                
-                <dt>放槍</dt>
-                <dd>打出的牌被其他玩家胡牌</dd>
-                
-                <dt>流局</dt>
-                <dd>牌牆摸完仍無人胡牌</dd>
-            </dl>
+            <div data-lang="zh">
+                <dl>
+                    <dt>吃</dt>
+                    <dd>當上家打出的牌能與你手中的兩張牌組成順子時，可以"吃"牌</dd>
+                    
+                    <dt>碰</dt>
+                    <dd>當任何一家打出的牌能與你手中的兩張牌組成刻子時，可以"碰"牌</dd>
+                    
+                    <dt>槓</dt>
+                    <dd>當你手中有三張相同的牌，又摸到第四張時，可以"槓"牌</dd>
+                    
+                    <dt>聽牌</dt>
+                    <dd>只差一張牌就能胡牌的狀態</dd>
+                    
+                    <dt>胡牌</dt>
+                    <dd>牌型符合胡牌條件，可以宣告勝利</dd>
+                    
+                    <dt>自摸</dt>
+                    <dd>自己摸到需要的牌而胡牌</dd>
+                    
+                    <dt>放槍</dt>
+                    <dd>打出的牌被其他玩家胡牌</dd>
+                    
+                    <dt>流局</dt>
+                    <dd>牌牆摸完仍無人胡牌</dd>
+                </dl>
+            </div>
+            
+            <div data-lang="en" style="display:none">
+                <dl>
+                    <dt>Chow</dt>
+                    <dd>When the previous player discards a tile that can form a sequence with two tiles in your hand</dd>
+                    
+                    <dt>Pong</dt>
+                    <dd>When any player discards a tile that can form a triplet with two tiles in your hand</dd>
+                    
+                    <dt>Kong</dt>
+                    <dd>When you have three identical tiles and draw the fourth</dd>
+                    
+                    <dt>Ready Hand</dt>
+                    <dd>Needing only one more tile to win</dd>
+                    
+                    <dt>Win</dt>
+                    <dd>When your hand meets the winning conditions</dd>
+                    
+                    <dt>Self-draw</dt>
+                    <dd>Winning by drawing the needed tile yourself</dd>
+                    
+                    <dt>Discard Win</dt>
+                    <dd>When your discarded tile allows another player to win</dd>
+                    
+                    <dt>Draw Game</dt>
+                    <dd>When the wall is exhausted without anyone winning</dd>
+                </dl>
+            </div>
         </section>
     </div>
     
     <script>
+        // 當前語言
+        let currentLanguage = 'zh';
+        
         // 顯示特定內容區域
         function showSection(sectionId) {
             // 隱藏所有內容區域
@@ -431,6 +624,36 @@
             
             // 顯示選定的內容區域
             document.getElementById(sectionId).classList.add('active');
+        }
+        
+        // 切換語言
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // 更新語言按鈕狀態
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.language-btn[onclick="switchLanguage('${lang}')"]`).classList.add('active');
+            
+            // 切換所有元素的顯示
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                if (element.getAttribute('data-lang') === lang) {
+                    element.style.display = '';
+                } else {
+                    element.style.display = 'none';
+                }
+            });
+            
+            // 更新練習區域的文本
+            updatePracticeText();
+        }
+        
+        // 更新練習區域的文本
+        function updatePracticeText() {
+            const handText = currentLanguage === 'zh' ? '您的牌組（' : 'Your tiles (';
+            const handCount = document.querySelector('#hand .tile').length || 0;
+            document.querySelector('#hand p').textContent = handText + handCount + '/16)';
         }
         
         // 初始化顯示基本規則
@@ -475,31 +698,19 @@
             { name: '中', type: 'honor' },
             { name: '發', type: 'honor' },
             { name: '白', type: 'honor' },
-            { name: '梅', type: 'flower' },
-            { name: '蘭', type: 'flower' },
-            { name: '竹', type: 'flower' },
-            { name: '菊', type: 'flower' },
-            { name: '春', type: 'flower' },
-            { name: '夏', type: 'flower' },
-            { name: '秋', type: 'flower' },
-            { name: '冬', type: 'flower' }
         ];
         
         // 初始化牌池
         function initializeTilePool() {
             const tilePool = document.getElementById('tile-pool');
             tilePool.innerHTML = '';
-            
-            // 創建4副每種牌
-            for (let i = 0; i < 4; i++) {
-                tileTypes.forEach(tile => {
-                    const tileElement = document.createElement('span');
-                    tileElement.className = `tile ${tile.type}`;
-                    tileElement.textContent = tile.name;
-                    tileElement.onclick = function() { selectTile(this); };
-                    tilePool.appendChild(tileElement);
-                });
-            }
+            tileTypes.forEach(tile => {
+              const tileElement = document.createElement('span');
+                tileElement.className = `tile ${tile.type}`;
+                tileElement.textContent = tile.name;
+                tileElement.onclick = function() { selectTile(this); };
+                tilePool.appendChild(tileElement);
+            });
         }
         
         // 選牌功能
@@ -508,7 +719,7 @@
             const selectedTiles = hand.querySelectorAll('.tile');
             
             if (selectedTiles.length >= 16) {
-                alert('已經選擇了16張牌！');
+                alert(currentLanguage === 'zh' ? '已經選擇了16張牌！' : 'Already selected 16 tiles!');
                 return;
             }
             
@@ -531,13 +742,18 @@
         function updateTileCount() {
             const hand = document.getElementById('hand');
             const selectedTiles = hand.querySelectorAll('.tile');
-            hand.firstElementChild.textContent = `您的牌組（${selectedTiles.length}/16）`;
+            const handText = currentLanguage === 'zh' ? '您的牌組（' : 'Your tiles (';
+            hand.querySelector('p').textContent = handText + selectedTiles.length + '/16)';
         }
         
         // 重置練習
         function resetPractice() {
             const hand = document.getElementById('hand');
-            hand.innerHTML = '<p>您的牌組（0/16）</p>';
+            if (currentLanguage === 'zh') {
+                hand.innerHTML = '<p>您的牌組（0/16）</p>';
+            } else {
+                hand.innerHTML = '<p>Your tiles (0/16)</p>';
+            }
             document.getElementById('result').style.display = 'none';
             initializeTilePool();
         }
@@ -549,7 +765,8 @@
             const resultDiv = document.getElementById('result');
             
             if (selectedTiles.length !== 16) {
-                resultDiv.textContent = '請選擇16張牌！';
+                resultDiv.textContent = currentLanguage === 'zh' ? 
+                    '請選擇16張牌！' : 'Please select 16 tiles!';
                 resultDiv.className = 'result error';
                 resultDiv.style.display = 'block';
                 return;
@@ -572,7 +789,9 @@
             }
             
             if (!hasPair) {
-                resultDiv.textContent = '不能胡牌：缺少將眼（至少需要一對）';
+                resultDiv.textContent = currentLanguage === 'zh' ? 
+                    '不能胡牌：缺少將眼（至少需要一對）' : 
+                    'Cannot win: Missing pair (you need at least one pair)';
                 resultDiv.className = 'result error';
                 resultDiv.style.display = 'block';
                 return;
@@ -581,7 +800,9 @@
             // 這裡應該有更複雜的胡牌檢查邏輯
             // 簡化版只檢查基本條件
             
-            resultDiv.textContent = '可能可以胡牌！（簡化檢查，實際遊戲需要更複雜的判斷）';
+            resultDiv.textContent = currentLanguage === 'zh' ? 
+                '可能可以胡牌！（簡化檢查，實際遊戲需要更複雜的判斷）' : 
+                'Possible winning hand! (Simplified check, actual game requires more complex logic)';
             resultDiv.className = 'result success';
             resultDiv.style.display = 'block';
         }
