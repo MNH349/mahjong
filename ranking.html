@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台灣麻將計分系統 - 2底1台</title>
+    <title>台灣麻將計分系統 - 2底1台 (放槍版)</title>
     <style>
         body {
             font-family: 'Microsoft JhengHei', Arial, sans-serif;
@@ -100,6 +100,14 @@
             border-radius: 5px;
         }
         
+        .loser-section {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #ffebee;
+            border-radius: 5px;
+            display: none;
+        }
+        
         .game-list {
             max-height: 300px;
             overflow-y: auto;
@@ -131,7 +139,7 @@
 </head>
 <body>
     <h1>台灣麻將計分系統</h1>
-    <h2>美金2底1台</h2>
+    <h2>美金2底1台 (放槍版)</h2>
     
     <div class="container">
         <!-- 輸入區 -->
@@ -188,7 +196,7 @@
             <div class="winner-section">
                 <div class="form-group">
                     <label for="winner">贏家:</label>
-                    <select id="winner" required>
+                    <select id="winner" required onchange="updateWinTypeDisplay()">
                         <option value="">選擇贏家</option>
                         <option value="1">玩家1</option>
                         <option value="2">玩家2</option>
@@ -205,10 +213,23 @@
                 
                 <div class="form-group">
                     <label for="win-type">胡牌方式:</label>
-                    <select id="win-type">
+                    <select id="win-type" onchange="updateWinTypeDisplay()">
                         <option value="self-drawn">自摸</option>
                         <option value="discard">放槍</option>
                     </select>
+                </div>
+                
+                <div class="loser-section" id="loser-section">
+                    <div class="form-group">
+                        <label for="loser">放槍者:</label>
+                        <select id="loser">
+                            <option value="">選擇放槍者</option>
+                            <option value="1">玩家1</option>
+                            <option value="2">玩家2</option>
+                            <option value="3">玩家3</option>
+                            <option value="4">玩家4</option>
+                        </select>
+                    </div>
                 </div>
                 
                 <button onclick="addGame()">記錄牌局</button>
@@ -235,6 +256,7 @@
                         <th>總得分</th>
                         <th>總局數</th>
                         <th>平均得分</th>
+                        <th>放槍次數</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -257,6 +279,30 @@
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('game-date').value = today;
         };
+        
+        // 根據胡牌方式更新顯示
+        function updateWinTypeDisplay() {
+            const winner = document.getElementById('winner').value;
+            const winType = document.getElementById('win-type').value;
+            const loserSection = document.getElementById('loser-section');
+            
+            if (winType === 'discard' && winner !== '0') {
+                loserSection.style.display = 'block';
+                
+                // 更新放槍者選項，排除贏家
+                const loserSelect = document.getElementById('loser');
+                loserSelect.innerHTML = '<option value="">選擇放槍者</option>';
+                
+                for (let i = 1; i <= 4; i++) {
+                    if (i.toString() !== winner) {
+                        const playerName = document.getElementById(`player${i}`).value || `玩家${i}`;
+                        loserSelect.innerHTML += `<option value="${i}">${playerName}</option>`;
+                    }
+                }
+            } else {
+                loserSection.style.display = 'none';
+            }
+        }
         
         // 添加新牌局
         function addGame() {
@@ -281,6 +327,16 @@
             const taiCount = parseInt(document.getElementById('tai-count').value) || 0;
             const winType = document.getElementById('win-type').value;
             const gameDate = document.getElementById('game-date').value;
+            
+            // 如果是放槍，檢查放槍者
+            let loser = null;
+            if (winType === 'discard' && winner !== '0') {
+                loser = document.getElementById('loser').value;
+                if (!loser) {
+                    alert('請選擇放槍者！');
+                    return;
+                }
+            }
             
             // 獲取玩家位置
             const positions = [
@@ -309,6 +365,7 @@
                 winner: parseInt(winner),
                 taiCount: taiCount,
                 winType: winType,
+                loser: loser ? parseInt(loser) : null,
                 timestamp: new Date().getTime()
             };
             
@@ -346,14 +403,14 @@
                     }
                 });
             } else if (game.winner > 0) {
-                // 放槍: 放槍者付總分*1.5，其他兩家付總分*0.5
-                // 這裡簡化為放槍者付總分*2，其他兩家付總分*1
-                // 實際規則可能有所不同
+                // 放槍: 放槍者付總分*2，其他玩家不付分
                 game.scores = game.players.map((player, index) => {
                     if (index + 1 === game.winner) {
-                        return totalScore * 2; // 贏家獲得
+                        return totalScore; // 贏家獲得放槍者付的分數
+                    } else if (index + 1 === game.loser) {
+                        return -totalScore; // 放槍者付分
                     } else {
-                        return -totalScore; // 其他玩家各付總分 (簡化)
+                        return 0; // 其他玩家不付分
                     }
                 });
             } else {
@@ -385,11 +442,18 @@
                     winnerName = game.players[game.winner - 1].name;
                 }
                 
+                // 查找放槍者姓名
+                let loserInfo = '';
+                if (game.winType === 'discard' && game.loser) {
+                    const loserName = game.players[game.loser - 1].name;
+                    loserInfo = ` (放槍者: ${loserName})`;
+                }
+                
                 // 顯示牌局信息
                 gameItem.innerHTML = `
                     <p><strong>${game.date}</strong></p>
                     <p>玩家: ${game.players.map(p => p.name).join(', ')}</p>
-                    <p>贏家: ${winnerName} ${game.winner > 0 ? `(${game.taiCount}台, ${game.winType === 'self-drawn' ? '自摸' : '放槍'})` : ''}</p>
+                    <p>贏家: ${winnerName} ${game.winner > 0 ? `(${game.taiCount}台, ${game.winType === 'self-drawn' ? '自摸' : '放槍'}${loserInfo})` : ''}</p>
                     <p>得分: ${game.players.map((p, i) => `${p.name}: ${game.scores[i] > 0 ? '+' : ''}${game.scores[i]}`).join(', ')}</p>
                 `;
                 
@@ -403,11 +467,11 @@
             leaderboard.innerHTML = '';
             
             if (games.length === 0) {
-                leaderboard.innerHTML = '<tr><td colspan="5">暫無數據</td></tr>';
+                leaderboard.innerHTML = '<tr><td colspan="6">暫無數據</td></tr>';
                 return;
             }
             
-            // 計算每個玩家的總得分和局數
+            // 計算每個玩家的總得分、局數和放槍次數
             const playerStats = {};
             
             games.forEach(game => {
@@ -415,12 +479,18 @@
                     if (!playerStats[player.name]) {
                         playerStats[player.name] = {
                             totalScore: 0,
-                            gameCount: 0
+                            gameCount: 0,
+                            loserCount: 0
                         };
                     }
                     
                     playerStats[player.name].totalScore += game.scores[index];
                     playerStats[player.name].gameCount += 1;
+                    
+                    // 統計放槍次數
+                    if (game.loser === index + 1) {
+                        playerStats[player.name].loserCount += 1;
+                    }
                 });
             });
             
@@ -430,7 +500,8 @@
                     name,
                     totalScore: stats.totalScore,
                     gameCount: stats.gameCount,
-                    averageScore: stats.totalScore / stats.gameCount
+                    averageScore: stats.totalScore / stats.gameCount,
+                    loserCount: stats.loserCount
                 }))
                 .sort((a, b) => b.totalScore - a.totalScore);
             
@@ -444,6 +515,7 @@
                     <td>${player.totalScore > 0 ? '+' : ''}${player.totalScore}</td>
                     <td>${player.gameCount}</td>
                     <td>${player.averageScore.toFixed(1)}</td>
+                    <td>${player.loserCount}</td>
                 `;
                 
                 leaderboard.appendChild(row);
